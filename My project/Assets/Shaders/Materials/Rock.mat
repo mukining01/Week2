@@ -68,7 +68,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Flow_Map:
         m_Texture: {fileID: 2800000, guid: eee3279cf0eea85468d825bd69ca206d, type: 3}
-        m_Scale: {x: 10, y: 10}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Lava_Texture:
         m_Texture: {fileID: 0}
@@ -112,7 +112,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _Rock_Texture:
         m_Texture: {fileID: 2800000, guid: 31627e9dbb81dad4ea2c4341db17299c, type: 3}
-        m_Scale: {x: 10, y: 10}
+        m_Scale: {x: 2, y: 5}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_0612a83b18824a87a1592653fd7e1e00_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: 9f2a885222e78414ea86bb96efe57223, type: 3}
@@ -177,7 +177,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Angle_Change_Speed: 0
-    - _Angle_Offset: 2
+    - _Angle_Offset: 2.29
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -199,7 +199,7 @@ Material:
     - _GlossyReflections: 0
     - _Heightmap_Strength: 0.24
     - _IsRaining: 0
-    - _Island_Density: 5
+    - _Island_Density: 1.12
     - _MACRODETAIL: 0
     - _MICRODETAIL: 0
     - _MOSS: 0
@@ -217,8 +217,8 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _Thickness: 0
-    - _Thickness_Falloff: 0.02
+    - _Thickness: 0.25
+    - _Thickness_Falloff: 0
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
     - _ZWrite: 1
