@@ -45,7 +45,7 @@ public class ScoreAnimator : MonoBehaviour
         NEWHIGHSCORE.SetActive(false);
         other_HIGHSCORE.SetActive(false);
 
-        AudioManager.Instance.PlayOneShot(EventCatalogue.Instance.CounterUpEvent, current_score_text.gameObject.transform.position);
+        AudioManager.Instance.StopStartMusic(AudioManager.Instance.CounterUpEventInstance);
     }
 
     private void Update()
@@ -59,6 +59,8 @@ public class ScoreAnimator : MonoBehaviour
         float _time = current_score_counting_time;
 
         if (_time >= score_counting_time) _time = score_counting_time;
+
+        if (current_score == 0) current_score_counting_time = 50;
 
         float _meters = Mathf.Lerp(0, current_score, _time / score_counting_time);
         _meters = Mathf.Round(_meters);
@@ -74,15 +76,21 @@ public class ScoreAnimator : MonoBehaviour
 
     public static void Display_HighScore()
     {
+        AudioManager.Instance.StopStartMusic(AudioManager.Instance.CounterUpEventInstance);
+
         if (current_highscore < current_score)
         {
             current_highscore = current_score;
             NEWHIGHSCORE.SetActive(true);
+
+            AudioManager.Instance.PlayOneShot(EventCatalogue.Instance.HighscoreEvent, current_high_score_text.transform.position);
         }
         else
         {
             current_high_score_text.text = current_highscore.ToString() + " meters";
             other_HIGHSCORE.SetActive(true);
+
+            AudioManager.Instance.PlayOneShot(EventCatalogue.Instance.ScoreEvent, current_high_score_text.transform.position);
         }
     }
 

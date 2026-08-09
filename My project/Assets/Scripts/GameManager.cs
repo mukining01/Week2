@@ -55,10 +55,6 @@ public class GameManager : MonoBehaviour
 
         text = text_p;
         TutorialText = TutorialText_p;
-
-        
-
-
     }
 
     public void Start()
@@ -84,6 +80,11 @@ public class GameManager : MonoBehaviour
                 reset = false;
                 TutorialText.SetActive(false);
                 text.gameObject.SetActive(true);
+                AudioManager.Instance.StopStartMusic(AudioManager.Instance.TimerEventInstance);
+                counting = true;
+
+                AudioManager.Instance.StopStartMusic(AudioManager.Instance.RockMusicEventInstance);
+                AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.RockSnapshotInstance);
             }
 
             return;
@@ -138,7 +139,7 @@ public class GameManager : MonoBehaviour
                 }
 
 
-                    Reset_Timers(false);
+                Reset_Timers(false);
             }
         }
     }
@@ -146,10 +147,12 @@ public class GameManager : MonoBehaviour
     public static void Reset_Timers(bool _starting_human)
     {
         current_timer = times[current_time];
-        current_stone_timer = 0;
+        current_stone_timer = 5;
 
         Spawn_Human(_starting_human);
     }
+
+    static bool counting = false;
 
     static float current_distance = 0f;
     static float new_distance_small = 0f;
@@ -169,13 +172,21 @@ public class GameManager : MonoBehaviour
 
         text.text = "FREEZE!";
         current_stone_timer = stone_timer;
+
+        counting = false;
+
+        AudioManager.Instance.StopStartMusic(AudioManager.Instance.TimerEventInstance);
+        AudioManager.Instance.PlayOneShot(EventCatalogue.Instance.MedusaFlashEvent, self.position);
     }
 
     public static void Spawn_Human(bool _starting_human)
     {
+        counting = true;
+        AudioManager.Instance.StopStartMusic(AudioManager.Instance.TimerEventInstance);
+
         Vector3 _spawn_position = new Vector3(0.79f, height_tracker.transform.position.y + tracking_target_add + new_distance_small, 0);
 
-        if(_starting_human) _spawn_position = new Vector3(0.79f, height_tracker.transform.position.y + 3, 0);
+        if(_starting_human) _spawn_position = new Vector3(0.79f, height_tracker.transform.position.y + 1, 0);
 
         var _human = Instantiate(HumansToTurn, self);
         _human.transform.position = _spawn_position;
@@ -183,8 +194,19 @@ public class GameManager : MonoBehaviour
         current_human = _human.GetComponent<TurnToStone>();
     }
 
+    public static void Stop_Counting()
+    {
+        if(counting)
+        {
+            AudioManager.Instance.StopStartMusic(AudioManager.Instance.TimerEventInstance);
+            counting = false;
+        }
+    }
+
     public static void Lose()
     {
+        Stop_Counting();
+
         lose = true;
         text.text = "LOSE";
         // animator.SetBool("Lose", true);
@@ -198,15 +220,14 @@ public class GameManager : MonoBehaviour
                 humans[i].GetComponent<TurnToStone>().Set_Kinematic();
             }
         }
+
+        AudioManager.Instance.PlayOneShot(EventCatalogue.Instance.MedusaSadEvent, self.position);
     }
 
     public static void Restart()
     {
         //Time.timeScale = 1;
         //animator.SetBool("Lose", false);
-
-        AudioManager.Instance.StopStartMusic(AudioManager.Instance.RockMusicEventInstance);
-        AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.CrystalMusicEventInstance);
 
         lose = false;
 
