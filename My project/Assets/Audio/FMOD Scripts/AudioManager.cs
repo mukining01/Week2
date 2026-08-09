@@ -22,6 +22,8 @@ public class AudioManager : MonoBehaviour
     // 3. AudioManager.Instance.StopStartMusic(AudioManager.Instance.RockMusicEventInstance);
     //    Three options are provided for music events: RockMusicEventInstance, CrystalMusicEventInstance, and ObsidianMusicEventInstance.
     //
+    //    PLUS: Camera move sound loop counts as a music event and can be started/stopped with the same function: CameraMoveEventInstance.
+    //
     #endregion
 
     #region Volume
@@ -38,37 +40,52 @@ public class AudioManager : MonoBehaviour
     private Bus MusicBus;
     private Bus SFXBus;
     //add more buses as needed  
-        #endregion
+    #endregion
 
     #region Initialisation
 
-    //event instances for music players etc. that need to be started/stopped/modified
+    //event instances for music players etc. that need to be started/stopped/modified (+ camera move event)
     private List<EventInstance> eventInstances;
     private List<StudioEventEmitter> eventEmitters;
     public EventInstance RockMusicEventInstance;
     public EventInstance CrystalMusicEventInstance;
     public EventInstance ObsidianMusicEventInstance;
+    public EventInstance CameraMoveEventInstance;
+
     //snapshots for audio adjustments
     public EventInstance RockSnapshotInstance;
     public EventInstance CrystalSnapshotInstance;
     public EventInstance ObsidianSnapshotInstance;
 
+    public EventInstance CreateInstance(EventReference eventReference)
+    {
+        EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
+
+        //Add to list for cleanup later
+        eventInstances.Add(eventInstance);
+
+        return eventInstance;
+
+    }
+
     private void InitializeRockMusicEvent(EventReference exampleEventReference)
     {
         RockMusicEventInstance = CreateInstance(exampleEventReference);
-        eventInstances.Add(RockMusicEventInstance);
 
     }
     private void InitializeCrystalMusicEvent(EventReference exampleEventReference)
     {
         CrystalMusicEventInstance = CreateInstance(exampleEventReference);
-        eventInstances.Add(CrystalMusicEventInstance);
 
     }
     private void InitializeObsidianMusicEvent(EventReference exampleEventReference)
     {
         ObsidianMusicEventInstance = CreateInstance(exampleEventReference);
-        eventInstances.Add(ObsidianMusicEventInstance);
+    }
+
+    private void InitializeCameraMoveEvent(EventReference exampleEventReference)
+    {
+        CameraMoveEventInstance = CreateInstance(exampleEventReference);
     }
 
     //Snapshots for audio adjustments
@@ -116,6 +133,7 @@ public class AudioManager : MonoBehaviour
         InitializeRockMusicEvent(EventCatalogue.Instance.RockMusicEvent);
         InitializeCrystalMusicEvent(EventCatalogue.Instance.CrystalMusicEvent);
         InitializeObsidianMusicEvent(EventCatalogue.Instance.ObsidianMusicEvent);
+        InitializeCameraMoveEvent(EventCatalogue.Instance.CameraMoveEvent);
 
         //Initialise snapshots for audio adjustments
         InitializeRockSnapshot("snapshot:/Rock");
