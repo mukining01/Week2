@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour
     //    Three options are provided for music events: RockMusicEventInstance, CrystalMusicEventInstance, and ObsidianMusicEventInstance.
     //
     //    PLUS: Camera move sound loop counts as a music event and can be started/stopped with the same function: CameraMoveEventInstance.
+    //    PLUS: Timer event counts as a music event and can be started/stopped with the same function: TimerEventInstance.
     //
     #endregion
 
@@ -51,6 +52,7 @@ public class AudioManager : MonoBehaviour
     public EventInstance CrystalMusicEventInstance;
     public EventInstance ObsidianMusicEventInstance;
     public EventInstance CameraMoveEventInstance;
+    public EventInstance TimerEventInstance;
 
     //snapshots for audio adjustments
     public EventInstance RockSnapshotInstance;
@@ -86,6 +88,11 @@ public class AudioManager : MonoBehaviour
     private void InitializeCameraMoveEvent(EventReference exampleEventReference)
     {
         CameraMoveEventInstance = CreateInstance(exampleEventReference);
+    }
+
+    private void InitializeTimerEvent(EventReference exampleEventReference)
+    {
+        TimerEventInstance = CreateInstance(exampleEventReference);
     }
 
     //Snapshots for audio adjustments
@@ -134,6 +141,7 @@ public class AudioManager : MonoBehaviour
         InitializeCrystalMusicEvent(EventCatalogue.Instance.CrystalMusicEvent);
         InitializeObsidianMusicEvent(EventCatalogue.Instance.ObsidianMusicEvent);
         InitializeCameraMoveEvent(EventCatalogue.Instance.CameraMoveEvent);
+        InitializeTimerEvent(EventCatalogue.Instance.TimerEvent);
 
         //Initialise snapshots for audio adjustments
         InitializeRockSnapshot("snapshot:/Rock");
@@ -175,7 +183,7 @@ public class AudioManager : MonoBehaviour
         } 
         else
         {
-            snapshotInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            snapshotInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         }
     }
 
@@ -191,7 +199,7 @@ public class AudioManager : MonoBehaviour
         } 
         else
         {
-            eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            eventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
         }
 
 }
