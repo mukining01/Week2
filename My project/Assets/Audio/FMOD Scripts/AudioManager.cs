@@ -53,6 +53,7 @@ public class AudioManager : MonoBehaviour
     public EventInstance ObsidianMusicEventInstance;
     public EventInstance CameraMoveEventInstance;
     public EventInstance TimerEventInstance;
+    public EventInstance CounterUpEventInstance;
 
     //snapshots for audio adjustments
     public EventInstance RockSnapshotInstance;
@@ -93,6 +94,11 @@ public class AudioManager : MonoBehaviour
     private void InitializeTimerEvent(EventReference exampleEventReference)
     {
         TimerEventInstance = CreateInstance(exampleEventReference);
+    }
+
+    private void InitializeCounterUpEvent(EventReference exampleEventReference)
+    {
+        CounterUpEventInstance = CreateInstance(exampleEventReference);
     }
 
     //Snapshots for audio adjustments
@@ -142,6 +148,7 @@ public class AudioManager : MonoBehaviour
         InitializeObsidianMusicEvent(EventCatalogue.Instance.ObsidianMusicEvent);
         InitializeCameraMoveEvent(EventCatalogue.Instance.CameraMoveEvent);
         InitializeTimerEvent(EventCatalogue.Instance.TimerEvent);
+        InitializeCounterUpEvent(EventCatalogue.Instance.CounterUpEvent);
 
         //Initialise snapshots for audio adjustments
         InitializeRockSnapshot("snapshot:/Rock");
