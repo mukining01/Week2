@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
-        AudioManager.Instance.StopStartMusic(AudioManager.Instance.RockMusicEventInstance);
+        //AudioManager.Instance.StopStartMusic(AudioManager.Instance.RockMusicEventInstance);
 
         XFailure.Reset_XFailure();
 
@@ -83,8 +83,7 @@ public class GameManager : MonoBehaviour
                 AudioManager.Instance.StopStartMusic(AudioManager.Instance.TimerEventInstance);
                 counting = true;
 
-                AudioManager.Instance.StopStartMusic(AudioManager.Instance.RockMusicEventInstance);
-                AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.RockSnapshotInstance);
+                Play_Rock_Music();
             }
 
             return;
@@ -125,17 +124,15 @@ public class GameManager : MonoBehaviour
                     human_count = 0;
                 }
 
-                if (global_human_count > 20)
+                if (current_distance >= 70 && stone_type == 1)
                 {
                     stone_type = 2;
-                    AudioManager.Instance.StopStartMusic(AudioManager.Instance.ObsidianMusicEventInstance);
-                    AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.ObsidianSnapshotInstance);
+                    Play_Rock_Music();
                 }
-                else if (global_human_count > 10)
+                else if (current_distance >= 35 && stone_type == 0)
                 {
                     stone_type = 1;
-                    AudioManager.Instance.StopStartMusic(AudioManager.Instance.CrystalMusicEventInstance);
-                    AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.CrystalSnapshotInstance);
+                    Play_Rock_Music();
                 }
 
 
@@ -182,7 +179,8 @@ public class GameManager : MonoBehaviour
     public static void Spawn_Human(bool _starting_human)
     {
         counting = true;
-        AudioManager.Instance.StopStartMusic(AudioManager.Instance.TimerEventInstance);
+        if(!_starting_human) AudioManager.Instance.StopStartMusic(AudioManager.Instance.TimerEventInstance);
+
 
         Vector3 _spawn_position = new Vector3(0.79f, height_tracker.transform.position.y + tracking_target_add + new_distance_small, 0);
 
@@ -207,6 +205,8 @@ public class GameManager : MonoBehaviour
     {
         Stop_Counting();
 
+        Stop_Music();
+
         lose = true;
         text.text = "LOSE";
         // animator.SetBool("Lose", true);
@@ -229,10 +229,15 @@ public class GameManager : MonoBehaviour
         //Time.timeScale = 1;
         //animator.SetBool("Lose", false);
 
+        stone_type = 0;
+
         lose = false;
 
         current_distance = 0;
         global_human_count = 0;
+
+        current_time = 0;
+        faster = false;
 
         XFailure.Reset_XFailure();
         ScoreAnimator.Reset_ScoreUI();
@@ -254,6 +259,48 @@ public class GameManager : MonoBehaviour
         reset = true;
         TutorialText.SetActive(true);
         text.gameObject.SetActive(false);
+    }
+
+    public static void Play_Rock_Music()
+    {
+        if(stone_type == 0)
+        {
+            AudioManager.Instance.StopStartMusic(AudioManager.Instance.RockMusicEventInstance);
+            AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.RockSnapshotInstance);
+        } else if (stone_type == 1)
+        {
+            AudioManager.Instance.StopStartMusic(AudioManager.Instance.RockMusicEventInstance);
+            AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.RockSnapshotInstance);
+
+            AudioManager.Instance.StopStartMusic(AudioManager.Instance.CrystalMusicEventInstance);
+            AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.CrystalSnapshotInstance);
+        } else
+        {
+            AudioManager.Instance.StopStartMusic(AudioManager.Instance.CrystalMusicEventInstance);
+            AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.CrystalSnapshotInstance);
+
+            AudioManager.Instance.StopStartMusic(AudioManager.Instance.ObsidianMusicEventInstance);
+            AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.ObsidianSnapshotInstance);
+        }
+    }
+
+    public static void Stop_Music()
+    {
+        if (stone_type == 0)
+        {
+            AudioManager.Instance.StopStartMusic(AudioManager.Instance.RockMusicEventInstance);
+            AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.RockSnapshotInstance);
+        }
+        else if (stone_type == 1)
+        {
+            AudioManager.Instance.StopStartMusic(AudioManager.Instance.CrystalMusicEventInstance);
+            AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.CrystalSnapshotInstance);
+        }
+        else
+        {
+            AudioManager.Instance.StopStartMusic(AudioManager.Instance.ObsidianMusicEventInstance);
+            AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.ObsidianSnapshotInstance);
+        }
     }
 }
 

@@ -2,10 +2,13 @@ using UnityEngine;
 
 public class TurnToStone : MonoBehaviour
 {
+    public LayerMask mask;
+
     public Rigidbody[] RigidBodies;
     public Clickable[] Clickables;
 
     bool stone = false;
+    bool turned_already = false;
 
     Vector3 past_position = Vector3.zero;
     Vector3 new_position = Vector3.zero;
@@ -41,6 +44,7 @@ public class TurnToStone : MonoBehaviour
 
         Set_Positions();
         stone = true;
+        turned_already = true;
 
         for (var i = 0;  i < RigidBodies.Length; i++)
         {
@@ -70,5 +74,17 @@ public class TurnToStone : MonoBehaviour
         {
             RigidBodies[i].isKinematic = true;
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        if (turned_already == true) return;
+        if ((mask.value & 1 << other.gameObject.layer) == 1 << other.gameObject.layer) return;
+            AudioManager.Instance.PlayOneShot(EventCatalogue.Instance.CollideEvent, transform.position);
     }
 }

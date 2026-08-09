@@ -15,7 +15,7 @@ MonoBehaviour:
   Path: FMOD/Desktop/UI.bank
   Name: UI
   StudioPath: bank:/UI
-  lastModified: 639219090789171514
+  lastModified: 639219100816162799
   FileSizes: []
   Exists: 1
 --- !u!114 &-7678680805836577049
@@ -114,7 +114,7 @@ MonoBehaviour:
   Path: FMOD/Desktop/Game.bank
   Name: Game
   StudioPath: bank:/Game
-  lastModified: 639219090787758248
+  lastModified: 639219100816006988
   FileSizes: []
   Exists: 1
 --- !u!114 &-3599939627102044290
@@ -322,7 +322,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: 4680273318510073909}
   cacheVersion: 131860
-  cacheTime: 639219090789171514
+  cacheTime: 639219100816162799
   SerializableEventsDict:
   - key: event:/Game Events/Fail
     index: 0
@@ -535,7 +535,7 @@ MonoBehaviour:
   Path: FMOD/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639219090787879571
+  lastModified: 639219100816016980
   FileSizes:
   - Name: 
     Value: 1932
@@ -555,7 +555,7 @@ MonoBehaviour:
   Path: FMOD/Desktop/Medusa.bank
   Name: Medusa
   StudioPath: bank:/Medusa
-  lastModified: 639219090788236256
+  lastModified: 639219100816027036
   FileSizes: []
   Exists: 1
 --- !u!114 &7495283378792893928
@@ -573,7 +573,7 @@ MonoBehaviour:
   Path: FMOD/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639219090787864484
+  lastModified: 639219100816006988
   FileSizes: []
   Exists: 1
 --- !u!114 &8111052935661241053
@@ -645,6 +645,6 @@ MonoBehaviour:
   Path: FMOD/Desktop/Music.bank
   Name: Music
   StudioPath: bank:/Music
-  lastModified: 639219090788788965
+  lastModified: 639219100816112230
   FileSizes: []
   Exists: 1

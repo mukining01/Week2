@@ -38,6 +38,8 @@ public class Clickable : MonoBehaviour
 
     public void OnClick()
     {
+      
+
         Vector3 mouse_position = Input.mousePosition;
 
         Ray myRay = myCamera.ScreenPointToRay(mouse_position);
@@ -54,6 +56,7 @@ public class Clickable : MonoBehaviour
 
             clicking = true;
             myMeshRenderer.material = ClickMaterial;
+            AudioManager.Instance.PlayOneShot(EventCatalogue.Instance.ClickEvent, transform.position);
         }
     }
 

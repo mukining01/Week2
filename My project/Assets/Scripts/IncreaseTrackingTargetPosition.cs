@@ -16,6 +16,9 @@ public class IncreaseTrackingTargetPosition : MonoBehaviour
         y_pos = transform.position.y;
     }
 
+    bool changing = false;
+    bool currently_changing = false;
+
     // Update is called once per frame
     void Update()
     {
@@ -23,12 +26,20 @@ public class IncreaseTrackingTargetPosition : MonoBehaviour
         if (Input.GetKey(KeyCode.UpArrow)) current_change = change;
         if (Input.GetKey(KeyCode.DownArrow)) current_change = -change;
 
-
-
         y_pos = Mathf.Lerp(y_pos, y_pos + current_change, 0.1f);
 
         y_pos = Mathf.Clamp(y_pos, 0, 50);
 
         transform.position = new Vector3(transform.position.x, y_pos, transform.position.z);
+
+        if(current_change != 0 && changing == false)
+        {
+            changing = true;
+            AudioManager.Instance.StopStartMusic(AudioManager.Instance.CameraMoveEventInstance);
+        } else if (current_change == 0 && changing == true)
+        {
+            changing = false;
+            AudioManager.Instance.StopStartMusic(AudioManager.Instance.CameraMoveEventInstance);
+        }
     }
 }

@@ -2292,6 +2292,7 @@ GameObject:
   - component: {fileID: 1862133006709799665}
   - component: {fileID: 79589210716285012}
   - component: {fileID: 7847761867082329670}
+  - component: {fileID: 1565229271232756833}
   m_Layer: 0
   m_Name: Human
   m_TagString: Untagged
@@ -2354,6 +2355,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6732deb3de850c541bc03d6a6817612d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnToStone
+  mask:
+    serializedVersion: 2
+    m_Bits: 896
   RigidBodies:
   - {fileID: 7418080537139101826}
   - {fileID: 8067270765369050009}
@@ -2378,6 +2382,27 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 3afe21bc1e6a3704384af73fbdf0caea, type: 2}
   - {fileID: 2100000, guid: 843ced4bbc773a442ae3bbf9f8c2e375, type: 2}
   - {fileID: 2100000, guid: 55d066c47152d754e858597e293f8b36, type: 2}
+--- !u!65 &1565229271232756833
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420897178727921912}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3675207, y: 2.9906707, z: 1}
+  m_Center: {x: 0.018840194, y: 1.9231358, z: 0}
 --- !u!1 &8186854372316095972
 GameObject:
   m_ObjectHideFlags: 0

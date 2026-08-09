@@ -45,6 +45,7 @@ public class ScoreAnimator : MonoBehaviour
         NEWHIGHSCORE.SetActive(false);
         other_HIGHSCORE.SetActive(false);
 
+        counting_audio = true;
         AudioManager.Instance.StopStartMusic(AudioManager.Instance.CounterUpEventInstance);
     }
 
@@ -53,14 +54,24 @@ public class ScoreAnimator : MonoBehaviour
         if (_set_Score) Count_Up_Score();
     }
 
+    static bool counting_audio = false;
+
     public static void Count_Up_Score()
     {
         current_score_counting_time += Time.deltaTime;
         float _time = current_score_counting_time;
 
-        if (_time >= score_counting_time) _time = score_counting_time;
+        if (_time >= score_counting_time)
+        {
+            _time = score_counting_time;
+            if(counting_audio)
+            {
+                AudioManager.Instance.StopStartMusic(AudioManager.Instance.CounterUpEventInstance);
+                counting_audio = false;
+            }
+        }
 
-        if (current_score == 0) current_score_counting_time = 50;
+            if (current_score == 0) current_score_counting_time = 50;
 
         float _meters = Mathf.Lerp(0, current_score, _time / score_counting_time);
         _meters = Mathf.Round(_meters);
@@ -76,8 +87,6 @@ public class ScoreAnimator : MonoBehaviour
 
     public static void Display_HighScore()
     {
-        AudioManager.Instance.StopStartMusic(AudioManager.Instance.CounterUpEventInstance);
-
         if (current_highscore < current_score)
         {
             current_highscore = current_score;
