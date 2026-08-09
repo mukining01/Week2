@@ -46,7 +46,7 @@ public class ScoreAnimator : MonoBehaviour
         other_HIGHSCORE.SetActive(false);
 
         counting_audio = true;
-        AudioManager.Instance.StopStartMusic(AudioManager.Instance.CounterUpEventInstance);
+        if (current_score != 0) AudioManager.Instance.StopStartMusic(AudioManager.Instance.CounterUpEventInstance);
     }
 
     private void Update()
@@ -64,7 +64,7 @@ public class ScoreAnimator : MonoBehaviour
         if (_time >= score_counting_time)
         {
             _time = score_counting_time;
-            if(counting_audio)
+            if(counting_audio && current_score != 0)
             {
                 AudioManager.Instance.StopStartMusic(AudioManager.Instance.CounterUpEventInstance);
                 counting_audio = false;

@@ -71,6 +71,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) Restart();
         if(Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
 
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (Time.timeScale > 0) Time.timeScale = 0;
+            else Time.timeScale = 1;
+        }
+
         if (lose) return;
 
         if(reset)
