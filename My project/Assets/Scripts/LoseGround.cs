@@ -11,6 +11,16 @@ public class LoseGround : MonoBehaviour
         {
             print("lose");
             GameManager.Lose();
+
+            Vector2 collision_point = Vector2.zero;
+
+            for(var i = 0 ; i < c.contacts.Length; i++)
+            {
+                collision_point = new Vector2(collision_point.x + c.contacts[i].point.x, collision_point.y + c.contacts[i].point.y);
+            }
+
+            collision_point = new Vector2(collision_point.x / c.contacts.Length, collision_point.y / c.contacts.Length);
+            XFailure.Position(collision_point);
         }
     }
 }

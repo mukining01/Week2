@@ -10,16 +10,27 @@ public class Clickable : MonoBehaviour
     public LayerMask hit_layer = 1 << 7;
     public LayerMask hit_layer_body = 1 << 8;
 
+    public Material ClickMaterial;
+    Material CurrentMaterial;
+    MeshRenderer myMeshRenderer;
+
     private void Awake()
     {
         myCamera = Camera.main;
         myRigidbody = GetComponent<Rigidbody>();
+
+        myMeshRenderer = GetComponent<MeshRenderer>();
+        CurrentMaterial = myMeshRenderer.material;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonUp(0)) clicking = false;
+        if (Input.GetMouseButtonUp(0))
+        {
+            clicking = false;
+            myMeshRenderer.material = CurrentMaterial;
+        }
         else if (Input.GetMouseButtonDown(0)) OnClick();
 
         if (clicking) MovementBehaviour();
@@ -42,6 +53,7 @@ public class Clickable : MonoBehaviour
             if (!Check_Hit_Is_Child(raycastHit) && !Check_Hit_Is_Child(raycastHit_1)) return;
 
             clicking = true;
+            myMeshRenderer.material = ClickMaterial;
         }
     }
 
@@ -53,7 +65,7 @@ public class Clickable : MonoBehaviour
         // transform.position = Vector3.Lerp(transform.position, new_pos, 0.1f)
         float _distance = Vector3.Distance(transform.position, new_pos);
         Vector2 _force = MathH.Direction_Between_Two_Vectors(transform.position, new_pos);
-        myRigidbody.AddForce(_force * _distance * 4);
+        myRigidbody.AddForce(_force * _distance * 10);
     }
 
     public bool Check_Hit_Is_Child(RaycastHit hit)

@@ -131,9 +131,9 @@ public class AudioManager : MonoBehaviour
     {
 
         // assign busses for volume control
-        MasterBus = RuntimeManager.GetBus("bus:/Master");
-        MusicBus = RuntimeManager.GetBus("bus:/Master/Music");
-        SFXBus = RuntimeManager.GetBus("bus:/Master/SFX");
+        //MasterBus = RuntimeManager.GetBus("bus:/Master");
+        //MusicBus = RuntimeManager.GetBus("bus:/Master/Music");
+        //SFXBus = RuntimeManager.GetBus("bus:/Master/SFX");
 
 
         //Intialize music events for music players that need to be started/stopped/modified
@@ -153,9 +153,9 @@ public class AudioManager : MonoBehaviour
     private void Update()
     {
         ////Update volume levels
-        MasterBus.setVolume(MasterVolume);
-        MusicBus.setVolume(MusicVolume);
-        SFXBus.setVolume(SFXVolume);
+       // MasterBus.setVolume(MasterVolume);
+      //  MusicBus.setVolume(MusicVolume);
+      //  SFXBus.setVolume(SFXVolume);
     }
       
 

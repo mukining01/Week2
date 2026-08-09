@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     static Transform TrackingTarget;
     public TMP_Text text_p;
     static TMP_Text text;
+    public GameObject height_tracker_p;
+    static GameObject height_tracker;
+    public GameObject TutorialText_p;
+    static GameObject TutorialText;
 
     static Transform self;
 
@@ -20,7 +24,8 @@ public class GameManager : MonoBehaviour
     static float current_timer = 0;
     static float current_stone_timer = 0;
     static int human_count = 0;
-    static int human_count_max = 3;
+    static int human_count_max = 10;
+    static int global_human_count = 0;
 
     static float[] times = new float[6] { 8, 7, 6, 5, 4, 3 };
     static int current_time = 0;
@@ -35,6 +40,10 @@ public class GameManager : MonoBehaviour
 
     static TurnToStone current_human = null;
 
+    static int stone_type = 0;
+
+    static bool reset = false;
+
     private void Awake()
     {
        // animator = GetComponent<Animator>();
@@ -42,10 +51,23 @@ public class GameManager : MonoBehaviour
         HumansToTurn = HumansToTurn_p;
         TrackingTarget = TrackingTarget_p;
         self = transform;
+        height_tracker = height_tracker_p;
 
         text = text_p;
+        TutorialText = TutorialText_p;
 
-        Reset_Timers();
+        
+
+
+    }
+
+    public void Start()
+    {
+        AudioManager.Instance.StopStartMusic(AudioManager.Instance.RockMusicEventInstance);
+
+        XFailure.Reset_XFailure();
+
+        Restart();
     }
 
     public void Update()
@@ -53,9 +75,17 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) Restart();
         if(Input.GetKeyDown(KeyCode.Escape)) Application.Quit();
 
-        if (lose)
+        if (lose) return;
+
+        if(reset)
         {
-            Time.timeScale = 0;
+            if(Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                reset = false;
+                TutorialText.SetActive(false);
+                text.gameObject.SetActive(true);
+            }
+
             return;
         }
 
@@ -63,7 +93,7 @@ public class GameManager : MonoBehaviour
         {
             current_timer -= Time.deltaTime;
 
-            float _time_normal = Mathf.FloorToInt(current_timer);
+            float _time_normal = Mathf.Round(current_timer);
 
             text.text = _time_normal.ToString();
             if(_time_normal < 10) text.text = "0" + _time_normal.ToString();
@@ -76,7 +106,7 @@ public class GameManager : MonoBehaviour
 
             if (current_timer <= 0)
             {
-                Turn_Huamn_To_Stone();
+                Turn_Human_To_Stone();
             }
         } else if (current_stone_timer > 0)
         {
@@ -85,6 +115,7 @@ public class GameManager : MonoBehaviour
             if(current_stone_timer <= 0)
             {
                 human_count++;
+                global_human_count++;
 
                 if (human_count >= human_count_max && current_time < times.Length - 1)
                 {
@@ -93,30 +124,58 @@ public class GameManager : MonoBehaviour
                     human_count = 0;
                 }
 
-                Reset_Timers();
+                if (global_human_count > 20)
+                {
+                    stone_type = 2;
+                    AudioManager.Instance.StopStartMusic(AudioManager.Instance.ObsidianMusicEventInstance);
+                    AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.ObsidianSnapshotInstance);
+                }
+                else if (global_human_count > 10)
+                {
+                    stone_type = 1;
+                    AudioManager.Instance.StopStartMusic(AudioManager.Instance.CrystalMusicEventInstance);
+                    AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.CrystalSnapshotInstance);
+                }
+
+
+                    Reset_Timers(false);
             }
         }
     }
 
-    public static void Reset_Timers()
+    public static void Reset_Timers(bool _starting_human)
     {
         current_timer = times[current_time];
         current_stone_timer = 0;
 
-        Spawn_Human();
+        Spawn_Human(_starting_human);
     }
 
-    public static void Turn_Huamn_To_Stone()
-    {
-        current_human.Stone();
+    static float current_distance = 0f;
+    static float new_distance_small = 0f;
 
-        text.text = "STONE!";
+    public static void Calculate_New_Height(float y_pos)
+    {
+        float _new_distance =Mathf.Floor( y_pos  * 2.5f);
+        new_distance_small = y_pos;
+        if (_new_distance > current_distance) current_distance = _new_distance;
+        print("best ditance: " + current_distance);
+    }
+
+    public static void Turn_Human_To_Stone()
+    {
+
+        current_human.Stone(stone_type);
+
+        text.text = "FREEZE!";
         current_stone_timer = stone_timer;
     }
 
-    public static void Spawn_Human()
+    public static void Spawn_Human(bool _starting_human)
     {
-        Vector3 _spawn_position = new Vector3(0.79f, TrackingTarget.position.y + tracking_target_add, 0);
+        Vector3 _spawn_position = new Vector3(0.79f, height_tracker.transform.position.y + tracking_target_add + new_distance_small, 0);
+
+        if(_starting_human) _spawn_position = new Vector3(0.79f, height_tracker.transform.position.y + 3, 0);
 
         var _human = Instantiate(HumansToTurn, self);
         _human.transform.position = _spawn_position;
@@ -128,13 +187,34 @@ public class GameManager : MonoBehaviour
     {
         lose = true;
         text.text = "LOSE";
-       // animator.SetBool("Lose", true);
+        // animator.SetBool("Lose", true);
+
+        ScoreAnimator.Set_Score(current_distance);
+
+        if (humans.Count > 0)
+        {
+            for (int i = 0; i < humans.Count; i++)
+            {
+                humans[i].GetComponent<TurnToStone>().Set_Kinematic();
+            }
+        }
     }
 
     public static void Restart()
     {
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         //animator.SetBool("Lose", false);
+
+        AudioManager.Instance.StopStartMusic(AudioManager.Instance.RockMusicEventInstance);
+        AudioManager.Instance.StopStartSnapshot(AudioManager.Instance.CrystalMusicEventInstance);
+
+        lose = false;
+
+        current_distance = 0;
+        global_human_count = 0;
+
+        XFailure.Reset_XFailure();
+        ScoreAnimator.Reset_ScoreUI();
 
         TrackingTarget.transform.position = new Vector3(TrackingTarget.position.x, 2.5f, TrackingTarget.position.z);
         
@@ -148,7 +228,11 @@ public class GameManager : MonoBehaviour
             humans.Clear();
         }
 
-        Reset_Timers();
+        Reset_Timers(true);
+
+        reset = true;
+        TutorialText.SetActive(true);
+        text.gameObject.SetActive(false);
     }
 }
 
