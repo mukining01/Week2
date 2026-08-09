@@ -1,0 +1,192 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2630911923174011907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5248172072876869013}
+  - component: {fileID: 630877641984622248}
+  m_Layer: 0
+  m_Name: EventCatalogue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5248172072876869013
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2630911923174011907}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3950803748352046617}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &630877641984622248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2630911923174011907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b492452999e5664ca0b739ea6fb46ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EventCatalogue
+  <ClickEvent>k__BackingField:
+    Guid:
+      Data1: 1883212441
+      Data2: 1259548194
+      Data3: -299336054
+      Data4: -97142892
+    Path: event:/UI Events/Click
+  <TimerEvent>k__BackingField:
+    Guid:
+      Data1: 345608914
+      Data2: 1081064828
+      Data3: 2033487750
+      Data4: 763068027
+    Path: event:/UI Events/Timer
+  <CounterUpEvent>k__BackingField:
+    Guid:
+      Data1: 63856969
+      Data2: 1161212428
+      Data3: -943616592
+      Data4: 1555522640
+    Path: event:/UI Events/CounterUp
+  <ScoreEvent>k__BackingField:
+    Guid:
+      Data1: 351682113
+      Data2: 1108412467
+      Data3: 1213786282
+      Data4: 1004455321
+    Path: event:/UI Events/Score
+  <HighscoreEvent>k__BackingField:
+    Guid:
+      Data1: -122522955
+      Data2: 1224395232
+      Data3: -898691447
+      Data4: 234608
+    Path: event:/UI Events/Highscore
+  <MedusaFlashEvent>k__BackingField:
+    Guid:
+      Data1: -496241588
+      Data2: 1228804048
+      Data3: -2129900120
+      Data4: 1109701919
+    Path: event:/Medusa Events/MedusaFlash
+  <MedusaSadEvent>k__BackingField:
+    Guid:
+      Data1: -1553565838
+      Data2: 1242746766
+      Data3: -231829362
+      Data4: 2098146512
+    Path: event:/Medusa Events/MedusaSad
+  <CollideEvent>k__BackingField:
+    Guid:
+      Data1: 1071620899
+      Data2: 1166495261
+      Data3: 1742086550
+      Data4: 267209008
+    Path: event:/Medusa Events/Collide
+  <FallEvent>k__BackingField:
+    Guid:
+      Data1: -544908569
+      Data2: 1221615071
+      Data3: 1583222153
+      Data4: -42791485
+    Path: event:/Game Events/Fall
+  <RockMusicEvent>k__BackingField:
+    Guid:
+      Data1: 1206392279
+      Data2: 1269912705
+      Data3: -1408041067
+      Data4: 1012388400
+    Path: event:/Music/RockMusic
+  <CrystalMusicEvent>k__BackingField:
+    Guid:
+      Data1: -327150462
+      Data2: 1265912811
+      Data3: -496168517
+      Data4: 296389831
+    Path: event:/Music/CrystalMusic
+  <ObsidianMusicEvent>k__BackingField:
+    Guid:
+      Data1: -203889243
+      Data2: 1326423074
+      Data3: 2073033880
+      Data4: 42095653
+    Path: event:/Music/ObsidianMusic
+  <CameraMoveEvent>k__BackingField:
+    Guid:
+      Data1: -1442585360
+      Data2: 1118188816
+      Data3: 555652262
+      Data4: -1839267943
+    Path: event:/Game Events/Camera Move
+  <FailEvent>k__BackingField:
+    Guid:
+      Data1: 1221098103
+      Data2: 1114476730
+      Data3: 405351587
+      Data4: -784796591
+    Path: event:/Game Events/Fail
+--- !u!1 &7556341489595671219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3950803748352046617}
+  - component: {fileID: 3004814408101147063}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3950803748352046617
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556341489595671219}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.70387, y: -3.49728, z: -7.14875}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5248172072876869013}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3004814408101147063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7556341489595671219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13167cbed1bd92641a68310b0712eca9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SFXManager
+  MasterVolume: 1
+  MusicVolume: 1
+  SFXVolume: 1
